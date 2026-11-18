@@ -20,6 +20,12 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { motion, AnimatePresence } from "framer-motion";
 
+// ✅ Centralized contact info — change yahan se update hoga
+const CONTACT_INFO = {
+  email: "leatonic@gmail.com",
+  phone: "+1 (555) 123-4567",
+};
+
 const DEFAULT_NAV_LINKS = [
   { label: "Home", href: "/", icon: Home },
   { label: "About", href: "/about", icon: User },
@@ -209,30 +215,30 @@ export default function FullscreenMenu({ isOpen, onClose }) {
             <div className="relative h-44 lg:h-auto lg:min-h-70">
               <Image
                 src="/banner/banner2.jpg"
-                alt="Marlena Properties Preview"
+                alt="Leatonic Preview"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
                 sizes="(max-width: 1024px) 128px, 160px"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
 
+              {/* ✅ Naya Logo: Blue gradient box + "Leatonic" text */}
               <div className="absolute top-3 left-3">
-                <div className="relative w-24 h-8 flex items-center justify-center">
-                  <div className="relative z-10 mt-10 w-50 h-20">
-                    <Image
-                      src="/images/logo1.png"
-                      alt="Marlena"
-                      fill
-                      className="object-contain"
-                      sizes="80px"
-                    />
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-linear-to-br from-[#97b4f8] to-[#5b7def] shadow-lg shadow-[#5b7def]/30">
+                    <span className="text-white font-bold text-lg select-none">
+                      L
+                    </span>
                   </div>
+                  <span className="text-white text-xl font-bold tracking-tight select-none">
+                    Leatonic
+                  </span>
                 </div>
               </div>
 
               <div className="absolute bottom-3 left-3">
                 <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
-                  Marlena Few
+                  Leatonic
                 </h2>
               </div>
             </div>
@@ -281,15 +287,27 @@ export default function FullscreenMenu({ isOpen, onClose }) {
 
           {/* Bottom Section */}
           <div className="border-t border-gray-100 p-4 flex items-center justify-between gap-3">
-            <a
-              href="mailto:marlena-few@coldwellbanker.ca"
-              className="flex items-center gap-2 text-gray-500 hover:text-[#012169] transition-colors"
-            >
-              <Mail size={15} />
-              <span className="text-sm font-medium">
-                marlena-few@coldwellbanker.ca
-              </span>
-            </a>
+            {/* ✅ Email + Phone group */}
+            <div className="flex items-center gap-4">
+              <a
+                href={`mailto:${CONTACT_INFO.email}`}
+                className="flex items-center gap-2 text-gray-500 hover:text-[#012169] transition-colors"
+              >
+                <Mail size={15} />
+                <span className="text-sm font-medium">
+                  {CONTACT_INFO.email}
+                </span>
+              </a>
+              <a
+                href={`tel:${CONTACT_INFO.phone}`}
+                className="hidden lg:flex items-center gap-2 text-gray-500 hover:text-[#012169] transition-colors"
+              >
+                <Phone size={15} />
+                <span className="text-sm font-medium">
+                  {CONTACT_INFO.phone}
+                </span>
+              </a>
+            </div>
 
             <div className="flex items-center gap-2">
               {/* ✅ FIXED: Dynamic Admin/Dashboard Link */}
@@ -368,7 +386,7 @@ export default function FullscreenMenu({ isOpen, onClose }) {
               <div className="relative h-40 shrink-0">
                 <Image
                   src="/banner/banner2.jpg"
-                  alt="Marlena"
+                  alt="Leatonic"
                   fill
                   className="object-cover"
                   sizes="320px"
@@ -376,13 +394,16 @@ export default function FullscreenMenu({ isOpen, onClose }) {
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 
+                {/* ✅ Naya Logo: Blue gradient box + "Leatonic" text */}
                 <div className="absolute top-3 left-3">
-                  <div className="flex items-center gap-2 bg-white/20 backdrop-blur-md rounded-full px-3 py-1.5 border border-white/30">
-                    <div className="w-6 h-6 rounded-full bg-[#012169] flex items-center justify-center">
-                      <span className="text-white text-[10px] font-bold">M</span>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-linear-to-br from-[#97b4f8] to-[#5b7def] shadow-lg shadow-[#5b7def]/30">
+                      <span className="text-white font-bold text-base select-none">
+                        L
+                      </span>
                     </div>
-                    <span className="text-white font-semibold text-xs">
-                      Marlena Few
+                    <span className="text-white font-bold text-sm tracking-tight">
+                      Leatonic
                     </span>
                   </div>
                 </div>
@@ -464,17 +485,29 @@ export default function FullscreenMenu({ isOpen, onClose }) {
 
               {/* Bottom Section */}
               <div className="border-t border-gray-100 px-4 py-4 shrink-0 bg-gray-50/50">
-                {/* Email */}
-                <a
-                  href="mailto:marlena-few@coldwellbanker.ca"
-                  onClick={(e) => e.stopPropagation()}
-                  className="flex items-center justify-center gap-1.5 text-gray-400 hover:text-[#012169] transition-colors mb-3"
-                >
-                  <Mail size={12} />
-                  <span className="text-[11px] font-medium">
-                    marlena-few@coldwellbanker.ca
-                  </span>
-                </a>
+                {/* ✅ Email + Phone */}
+                <div className="flex flex-col items-center gap-1.5 mb-3">
+                  <a
+                    href={`mailto:${CONTACT_INFO.email}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex items-center gap-1.5 text-gray-400 hover:text-[#012169] transition-colors"
+                  >
+                    <Mail size={12} />
+                    <span className="text-[11px] font-medium">
+                      {CONTACT_INFO.email}
+                    </span>
+                  </a>
+                  <a
+                    href={`tel:${CONTACT_INFO.phone}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex items-center gap-1.5 text-gray-400 hover:text-[#012169] transition-colors"
+                  >
+                    <Phone size={12} />
+                    <span className="text-[11px] font-medium">
+                      {CONTACT_INFO.phone}
+                    </span>
+                  </a>
+                </div>
 
                 <div className="flex flex-col items-center gap-2">
                   {/* ✅ FIXED: Dynamic Admin/Dashboard Link */}

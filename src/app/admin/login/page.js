@@ -5,8 +5,8 @@ import LoginForm from "@/app/admin/login/LoginForm";
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: "Admin Login",
-  description: "Login to admin panel",
+  title: "Leatonic — Admin Login",
+  description: "Login to Leatonic admin panel",
 };
 
 export default function AdminLoginPage() {
@@ -22,16 +22,14 @@ export default function AdminLoginPage() {
         }}
       />
 
-      {/* ===== LOGO WATERMARK ===== */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-        <img
-          src="/images/logo1.png"
-          alt="Logo Watermark"
-          width={400}
-          height={400}
-          style={{ width: "auto", height: "auto" }}
-          className="w-125 h-125 sm:w-150 sm:h-150 object-contain opacity-[0.04]"
-        />
+      {/* ===== LEATONIC LOGO WATERMARK (gradient box + "L") ===== */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0 gap-6">
+        {/* Big "L" gradient watermark */}
+        <div className="w-72 h-72 sm:w-96 sm:h-96 rounded-[2.5rem] bg-linear-to-br from-[#97b4f8] to-[#5b7def] opacity-[0.06] flex items-center justify-center shadow-2xl">
+          <span className="text-white font-bold text-[16rem] sm:text-[20rem] leading-none select-none">
+            L
+          </span>
+        </div>
       </div>
 
       {/* Top Glow */}
@@ -60,6 +58,16 @@ export default function AdminLoginPage() {
         </svg>
         <span className="hidden sm:inline">Back to Home</span>
       </Link>
+
+      {/* Leatonic Brand — Top Center */}
+      <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2.5">
+        <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-linear-to-br from-[#97b4f8] to-[#5b7def] shadow-lg shadow-[#5b7def]/30">
+          <span className="text-white font-bold text-base select-none">L</span>
+        </div>
+        <span className="text-white text-lg font-bold tracking-tight select-none">
+          Leatonic
+        </span>
+      </div>
 
       {/* Form Container — Constrained Width */}
       <div className="relative z-10 w-full max-w-105 mx-4">

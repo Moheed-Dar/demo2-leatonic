@@ -9,18 +9,20 @@ const testimonials = [
     id: 1,
     name: "Sarah Johnson",
     role: "First-Time Homebuyer",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
+    avatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
     rating: 5,
-    text: "Marlena helped us find our perfect home, and she made the entire process so easy. Any questions we had got answered immediately. She put things in simple terms for us to understand what was happening every step of the way. She was quick, professional and kind. She also went above and beyond what we expected of her!! I will recommend her to anyone buying or selling.",
+    text: "Leatonic helped us find our perfect home, and the entire process was so smooth. Every question we had was answered immediately, and everything was explained in simple terms so we understood what was happening at each step. Quick, professional, and genuinely kind. They went above and beyond what we ever expected! I will recommend Leatonic to anyone buying or selling.",
     date: "28 weeks ago",
   },
   {
     id: 2,
     name: "Michael Chen",
     role: "Home Seller",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
+    avatar:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
     rating: 5,
-    text: "I couldn't be happier with all the hard work and effort that Marlena put into ensuring a quick and successful sale of my home. She was always available to respond to any questions and address any issues that came up throughout the entire process from start to finish. Marlena was always so kind and helpful, and she went above and beyond to accommodate the special circumstances.",
+    text: "I couldn't be happier with the hard work and effort Leatonic put into ensuring a quick and successful sale of my home. Always available to respond to questions and address any issues from start to finish. Leatonic was kind, helpful, and went above and beyond to accommodate the special circumstances of my sale.",
     date: "44 weeks ago",
   },
 ];
@@ -130,8 +132,8 @@ export default function TestimonialsSection() {
                 : "opacity-0 translate-y-8"
             }`}
           >
-            Hear how our clients found homes that truly match their lifestyle
-            and expectations.
+            Hear how Leatonic helped clients find homes that truly match their
+            lifestyle and expectations.
           </p>
         </div>
 

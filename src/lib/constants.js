@@ -14,10 +14,10 @@ export const NAV_LINKS = {
 };
 
 export const CONTACT_INFO = {
-   phone: "12269325002",
-  phoneHref: "tel:+12269325002",
+   phone: "1111115002",
+  phoneHref: "tel:+1111115002",
   email: "info@havana.com",
-  emailHref: "marlena-few@coldwellbanker.ca",
+  emailHref: "mailto:Leatonic@gmail.com",
 };
 
 export const BRAND = {

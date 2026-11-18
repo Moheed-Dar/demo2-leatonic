@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Phone, Menu, X, MessageCircle } from "lucide-react";
 import FullscreenMenu from "@/components/ui/FullscreenMenu";
 import { CONTACT_INFO } from "@/lib/constants";
@@ -30,30 +29,19 @@ export default function Navbar() {
       >
         <nav className="container mx-auto px-6 lg:px-5 md:py-2 py-3 flex items-center justify-between">
 
-          {/* Logo Image — Larger on md+ */}
+          {/* Logo — Blue Background Box + "Leatonic" Text */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            {/* Desktop Logo (md and up) */}
-            <div className="relative w-55 h-20 hidden md:block">
-              <Image
-                src="/images/logo2.png"
-                alt="Marlena Properties"
-                fill
-                className="object-contain"
-                sizes="288px"
-                priority
-              />
+            {/* Blue Background Logo Box */}
+            <div className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-xl bg-linear-to-br from-[#003ecd] to-[#1b50ff] shadow-lg shadow-[#5b7def]/30 group-hover:scale-105 transition-transform duration-300">
+              <span className="text-white font-bold text-xl md:text-2xl select-none">
+                L
+              </span>
             </div>
-            {/* Mobile Logo (below md) */}
-            <div className="relative w-35 h-12 md:hidden">
-              <Image
-                src="/images/logo2.png"
-                alt="Marlena Properties"
-                fill
-                className="object-contain"
-                sizes="160px"
-                priority
-              />
-            </div>
+
+            {/* "Leatonic" Text */}
+            <span className="text-white text-2xl md:text-3xl font-bold tracking-tight select-none">
+              Leatonic
+            </span>
           </Link>
 
           {/* Right Side: Phone + Let's Talk + Menu */}

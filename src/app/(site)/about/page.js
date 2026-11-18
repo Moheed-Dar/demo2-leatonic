@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
@@ -40,19 +39,37 @@ export default function About() {
 
   const brandBlue = "#012169";
 
+  // ✅ Images via external Google/web links — using <img> tag (no next.config.js needed)
   const images = [
-    { src: "/images/img1.jpg", alt: "Modern Home 1" },
-    { src: "/images/img2.jpg", alt: "Modern Home 2" },
-    { src: "/images/img3.jpg", alt: "Modern Home 3" },
-    { src: "/images/img4.png", alt: "Modern Home 4" },
+    {
+      src: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/5d63b5dfd57d.jpg",
+      alt: "Leatonic — Professional Portrait 1",
+    },
+    {
+      src: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/4fbd1525af46.jpeg",
+      alt: "Leatonic — Professional Portrait 2",
+    },
+    {
+      src: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/88983b285ce1.jpg",
+      alt: "Leatonic — Professional Portrait 3",
+    },
+    {
+      src: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/51aca9c5dd97.jpg",
+      alt: "Leatonic — Professional Portrait 4",
+    },
   ];
 
+  // ✅ Updated: Leatonic-branded social links (replace with real URLs when ready)
   const socialLinks = [
-    { icon: InstagramIcon, href: "https://www.instagram.com/marlenafew.cbsw/", label: "Instagram", color: "#E4405F" },
-    { icon: FacebookIcon, href: "https://www.facebook.com/profile.php?id=61565034290975", label: "Facebook", color: "#1877F2" },
-    { icon: YoutubeIcon, href: "https://www.youtube.com/@MarlenaFew", label: "YouTube", color: "#FF0000" },
-    { icon: TiktokIcon, href: "https://www.tiktok.com/@marlenafew.cbsw", label: "TikTok", color: "#000000" },
+    { icon: InstagramIcon, href: "https://www.instagram.com/leatonic", label: "Instagram", color: "#E4405F" },
+    { icon: FacebookIcon, href: "https://www.facebook.com/leatonic", label: "Facebook", color: "#1877F2" },
+    { icon: YoutubeIcon, href: "https://www.youtube.com/@leatonic", label: "YouTube", color: "#FF0000" },
+    { icon: TiktokIcon, href: "https://www.tiktok.com/@leatonic", label: "TikTok", color: "#000000" },
   ];
+
+  // ✅ Main bio image via external link (portrait orientation)
+  const bioImage =
+    "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/88577eb5342d.jpeg";
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -120,13 +137,14 @@ export default function About() {
       className="relative w-full overflow-hidden py-20 sm:py-28 lg:py-32"
     >
       <div className="absolute inset-0 z-0">
-        <div 
+        <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(180deg, #012069c7 0%, #1a3a7adc 25%, #4a6fa5 45%, #8fa8d0 60%, #86a9d8 75%, #9cc5ee 90%, #c7e0f8 100%)"
+            background:
+              "linear-gradient(180deg, #012069c7 0%, #1a3a7adc 25%, #4a6fa5 45%, #8fa8d0 60%, #86a9d8 75%, #9cc5ee 90%, #c7e0f8 100%)",
           }}
         />
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -135,7 +153,6 @@ export default function About() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -161,35 +178,41 @@ export default function About() {
           </p>
         </div>
 
-        <div ref={imagesRef} className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-20 sm:mb-28">
+        <div
+          ref={imagesRef}
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-20 sm:mb-28"
+        >
           {images.map((img, index) => (
             <motion.div
               key={index}
               className="about-image relative group cursor-pointer"
-              initial={{ opacity: 0, y: 50, rotate: frameVariants[index % 4].rotate }}
-              whileInView={{ 
-                opacity: 1, 
+              initial={{
+                opacity: 0,
+                y: 50,
+                rotate: frameVariants[index % 4].rotate,
+              }}
+              whileInView={{
+                opacity: 1,
                 y: frameVariants[index % 4].y,
-                rotate: frameVariants[index % 4].rotate 
+                rotate: frameVariants[index % 4].rotate,
               }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: index * 0.1, ease: "easeOut" }}
-              whileHover={{ 
-                scale: 1.05, 
-                rotate: 0, 
+              whileHover={{
+                scale: 1.05,
+                rotate: 0,
                 y: -10,
                 zIndex: 10,
-                transition: { duration: 0.4, ease: "easeOut" }
+                transition: { duration: 0.4, ease: "easeOut" },
               }}
             >
               <div className="bg-white p-3 sm:p-4 rounded-2xl shadow-lg group-hover:shadow-2xl transition-shadow duration-500">
                 <div className="relative aspect-4/3 rounded-xl overflow-hidden">
-                  <Image
+                  <img
                     src={img.src}
                     alt={img.alt}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-[#012169]/0 group-hover:bg-[#012169]/20 transition-all duration-500" />
                   <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-linear-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -198,18 +221,25 @@ export default function About() {
                   <div className="w-8 h-1 bg-gray-200 rounded-full mx-auto group-hover:bg-[#012169]/30 transition-colors duration-500" />
                 </div>
               </div>
-              <motion.div 
+              <motion.div
                 className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#012169]/30 group-hover:bg-[#012169]/50 transition-colors duration-300"
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.5 + index * 0.1, type: "spring", stiffness: 200 }}
+                transition={{
+                  delay: 0.5 + index * 0.1,
+                  type: "spring",
+                  stiffness: 200,
+                }}
               />
             </motion.div>
           ))}
         </div>
 
-        <div ref={bioRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div
+          ref={bioRef}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+        >
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -222,33 +252,57 @@ export default function About() {
               </span>
             </motion.div>
 
-            <motion.h3 
+            <motion.h3
               variants={itemVariants}
               className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#012169] mb-8 leading-tight"
             >
               Hi, I&apos;m{" "}
               <span className="relative">
-                Marlena
-                <svg className="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none">
-                  <path d="M2 6C50 2 150 2 198 6" stroke="#012169" strokeWidth="3" strokeLinecap="round" opacity="0.3"/>
+                Leatonic
+                <svg
+                  className="absolute -bottom-2 left-0 w-full"
+                  height="8"
+                  viewBox="0 0 200 8"
+                  fill="none"
+                >
+                  <path
+                    d="M2 6C50 2 150 2 198 6"
+                    stroke="#012169"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    opacity="0.3"
+                  />
                 </svg>
               </span>
             </motion.h3>
 
-            <motion.div variants={itemVariants} className="space-y-5 text-gray-200 text-base sm:text-lg leading-relaxed">
+            <motion.div
+              variants={itemVariants}
+              className="space-y-5 text-gray-200 text-base sm:text-lg leading-relaxed"
+            >
               <p>
                 If you&apos;re looking for a Realtor who believes in{" "}
                 <span className="text-[#012169] font-medium">honesty</span>,{" "}
-                <span className="text-[#012169] font-medium">communication</span>, and making the process feel a little less stressful, you&apos;re in the right place.
+                <span className="text-[#012169] font-medium">communication</span>,
+                and making the process feel a little less stressful, you&apos;re
+                in the right place.
               </p>
               <p>
-                My background is in <span className="text-[#012169] font-medium">healthcare</span>, where I learned the importance of patience, compassion, and showing up for people when they need support. Those same values guide the way I work with my clients today.
+                My background is in{" "}
+                <span className="text-[#012169] font-medium">client service</span>,
+                where I learned the importance of patience, compassion, and
+                showing up for people when they need support. Those same values
+                guide the way I work with my clients today.
               </p>
               <p>
-                I know buying or selling a home can feel overwhelming at times, but you don&apos;t have to navigate it alone. Whether you&apos;re just starting to explore your options or ready to make a move, I&apos;m here to help every step of the way.
+                I know buying or selling a home can feel overwhelming at times,
+                but you don&apos;t have to navigate it alone. Whether you&apos;re
+                just starting to explore your options or ready to make a move,
+                I&apos;m here to help every step of the way.
               </p>
               <p className="text-[#012169] font-medium text-lg">
-                I believe real estate should feel personal, and I look forward to getting to know your story.
+                I believe real estate should feel personal, and I look forward to
+                getting to know your story.
               </p>
             </motion.div>
 
@@ -264,8 +318,8 @@ export default function About() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-11 h-11 rounded-xl border border-gray-300 flex items-center justify-center text-gray-500 transition-all duration-300"
-                    whileHover={{ 
-                      scale: 1.1, 
+                    whileHover={{
+                      scale: 1.1,
                       y: -3,
                       backgroundColor: social.color,
                       borderColor: social.color,
@@ -289,12 +343,11 @@ export default function About() {
             className="relative"
           >
             <div className="relative aspect-3/4 rounded-3xl overflow-hidden shadow-2xl">
-              <Image
-                src="/images/img1.jpg"
-                alt="Marlena Few"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+              <img
+                src={bioImage}
+                alt="Leatonic — Real Estate Professional"
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-linear-to-t from-[#012169]/30 via-transparent to-transparent" />
             </div>
@@ -306,13 +359,14 @@ export default function About() {
               transition={{ delay: 0.4, duration: 0.5 }}
             >
               <p className="text-3xl sm:text-4xl font-bold text-[#012169]">12+</p>
-              <p className="text-xs sm:text-sm text-gray-500 mt-1">Years Experience</p>
+              <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                Years Experience
+              </p>
             </motion.div>
             <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full border-2 border-[#012169]/10" />
             <div className="absolute -top-2 -right-2 w-16 h-16 rounded-full bg-[#012169]/5" />
           </motion.div>
         </div>
-
       </div>
     </section>
   );
