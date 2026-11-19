@@ -39,22 +39,22 @@ export default function About() {
 
   const brandBlue = "#012169";
 
-  // ✅ Images via external Google/web links — using <img> tag (no next.config.js needed)
+  // ✅ Local images from public/images folder (img1.jpg → img4.jpg for cards)
   const images = [
     {
-      src: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/5d63b5dfd57d.jpg",
+      src: "/images/img1.jpg",
       alt: "Leatonic — Professional Portrait 1",
     },
     {
-      src: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/4fbd1525af46.jpeg",
+      src: "/images/img2.jpg",
       alt: "Leatonic — Professional Portrait 2",
     },
     {
-      src: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/88983b285ce1.jpg",
+      src: "/images/img3.jpg",
       alt: "Leatonic — Professional Portrait 3",
     },
     {
-      src: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/51aca9c5dd97.jpg",
+      src: "/images/img4.jpg",
       alt: "Leatonic — Professional Portrait 4",
     },
   ];
@@ -67,9 +67,8 @@ export default function About() {
     { icon: TiktokIcon, href: "https://www.tiktok.com/@leatonic", label: "TikTok", color: "#000000" },
   ];
 
-  // ✅ Main bio image via external link (portrait orientation)
-  const bioImage =
-    "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/88577eb5342d.jpeg";
+  // ✅ Main bio image from public/images folder (img5.jpg — portrait orientation)
+  const bioImage = "/images/img5.jpg";
 
   useEffect(() => {
     const ctx = gsap.context(() => {

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
+import { motion } from "framer-motion";
 import { ArrowUpRight, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import Link from "next/link";
 
@@ -11,12 +12,14 @@ export default function HeroSection() {
   const titleRef = useRef(null);
   const titleContainerRef = useRef(null);
   const cursorGlowRef = useRef(null);
-  // Removed: const letsTalkRef = useRef(null);
   const rotatingBadgeRef = useRef(null);
   const arrowRef = useRef(null);
   const bottomOverlayRef = useRef(null);
   const ringTextRef = useRef(null);
   const ringPulseRef = useRef(null);
+
+  // ===== Per-letter cursor pump refs =====
+  const letterRefs = useRef([]);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -24,6 +27,10 @@ export default function HeroSection() {
   const [isRingHovered, setIsRingHovered] = useState(false);
 
   const brandBlue = "#97b4f8";
+
+  // Split title into individual letters for zoom pump animation
+  const titleText = "Leatonic ";
+  const letters = titleText.split("");
 
   // Public folder images (banner/banner1.jpg, banner/banner2.jpg, banner/banner3.jpg)
   const heroImages = [
@@ -75,14 +82,36 @@ export default function HeroSection() {
     goToImage((currentImageIndex - 1 + heroImages.length) % heroImages.length);
   }, [currentImageIndex, goToImage, heroImages.length]);
 
+  // ============================================================
+  //  PER-LETTER CURSOR PUMP
+  //  Only the letter directly under the cursor pumps (one-shot
+  //  keyframe pop). Other letters stay exactly where they are.
+  //  As the cursor moves forward, the next letter pops -> keyframe trail.
+  // ============================================================
+  const pumpLetter = useCallback((index) => {
+    const el = letterRefs.current[index];
+    if (!el) return;
+    // Kill any running scale tween on this letter so re-entry restarts cleanly
+    gsap.killTweensOf(el, "scale");
+    gsap
+      .timeline()
+      .to(el, { scale: 1.45, duration: 0.18, ease: "back.out(2.2)" })
+      .to(el, { scale: 1, duration: 0.3, ease: "power2.inOut" });
+  }, []);
+
+  const settleAllLetters = useCallback(() => {
+    const validLetters = letterRefs.current.filter(Boolean);
+    if (!validLetters.length) return;
+    gsap.killTweensOf(validLetters, "scale");
+    gsap.to(validLetters, {
+      scale: 1,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  }, []);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Removed letsTalkRef from gsap.set
-      gsap.set(titleRef.current, {
-        opacity: 0,
-        y: 40,
-      });
-
       gsap.set(rotatingBadgeRef.current, {
         opacity: 0,
         scale: 0.5,
@@ -95,19 +124,13 @@ export default function HeroSection() {
 
       const tl = gsap.timeline({ delay: 0.5 });
 
-      // Removed the letsTalkRef tween from the timeline
-      tl.to(titleRef.current, {
+      // (title entrance is handled by Framer Motion per-letter below)
+      tl.to(rotatingBadgeRef.current, {
         opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power3.out",
-      })
-        .to(rotatingBadgeRef.current, {
-          opacity: 1,
-          scale: 1,
-          duration: 0.8,
-          ease: "back.out(1.7)",
-        }, "-=0.6")
+        scale: 1,
+        duration: 0.8,
+        ease: "back.out(1.7)",
+      }, "-=0.6")
         .to(bottomOverlayRef.current, {
           opacity: 1,
           y: 0,
@@ -137,7 +160,6 @@ export default function HeroSection() {
         repeat: -1,
         ease: "power1.out",
       });
-
     }, containerRef);
 
     return () => ctx.revert();
@@ -166,7 +188,7 @@ export default function HeroSection() {
     }
   }, [isRingHovered]);
 
-  // Soft Blue Cursor Glow Effect on Marlena Few title
+  // Soft Blue Cursor Glow + settle-on-leave (per-letter pump handled on each span)
   useEffect(() => {
     const titleContainer = titleContainerRef.current;
     const cursorGlow = cursorGlowRef.current;
@@ -203,6 +225,8 @@ export default function HeroSection() {
         duration: 0.4,
         ease: "power2.out",
       });
+      // Settle every letter back to normal when cursor leaves the title
+      settleAllLetters();
     };
 
     titleContainer.addEventListener("mousemove", handleMouseMove);
@@ -213,6 +237,14 @@ export default function HeroSection() {
       titleContainer.removeEventListener("mousemove", handleMouseMove);
       titleContainer.removeEventListener("mouseenter", handleMouseEnter);
       titleContainer.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [settleAllLetters]);
+
+  // Cleanup any running letter tweens on unmount
+  useEffect(() => {
+    return () => {
+      const validLetters = letterRefs.current.filter(Boolean);
+      gsap.killTweensOf(validLetters);
     };
   }, []);
 
@@ -298,15 +330,35 @@ export default function HeroSection() {
               }}
             />
 
+            {/* ====== UPDATED TITLE: only the letter under cursor pumps ====== */}
             <h1
               ref={titleRef}
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-black text-white tracking-tighter leading-none select-none text-center relative z-10"
+              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-black text-white tracking-tighter leading-none select-none text-center relative z-10 flex justify-center"
               style={{
                 textShadow:
                   "0 8px 40px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.3)",
               }}
             >
-              Add Your Name Here
+              {letters.map((letter, i) => (
+                <motion.span
+                  key={i}
+                  ref={(el) => (letterRefs.current[i] = el)}
+                  onMouseEnter={() => pumpLetter(i)}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.5 + i * 0.08,
+                    duration: 0.8,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  style={{
+                    display: "inline-block",
+                    willChange: "transform",
+                  }}
+                >
+                  {letter}
+                </motion.span>
+              ))}
             </h1>
           </div>
         </div>

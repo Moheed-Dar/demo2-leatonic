@@ -611,16 +611,10 @@ export default function PropertiesPage() {
             backgroundSize: "40px 40px",
           }}
         />
-        <div className="absolute inset-0 flex items-center justify-center opacity-[0.06]">
-          <div className="relative w-75 h-75 sm:w-100 sm:h-100">
-            <Image
-              src="/images/logo1.png"
-              alt="Watermark"
-              fill
-              className="object-contain"
-              unoptimized
-            />
-          </div>
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.07] select-none pointer-events-none">
+          <span className="text-[20vw] sm:text-[18vw] lg:text-[16vw] font-black text-white tracking-tighter leading-none whitespace-nowrap font-inter">
+            leatonic
+          </span>
         </div>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(43,127,255,0.12)_0%,transparent_40%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(43,127,255,0.08)_0%,transparent_50%)]" />
